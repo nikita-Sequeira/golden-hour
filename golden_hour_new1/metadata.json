@@ -1,0 +1,11 @@
+{
+  "name": "Golden Hour - Western Railway Emergency Hospital & Bed Grid",
+  "description": "Find the right hospital bed, fast. Emergency hospital bed availability radar, nurse triage, 108 ambulance dispatch, and Western Railway emergency network in Mumbai.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

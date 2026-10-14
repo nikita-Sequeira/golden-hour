@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+/* ───────── Golden Hour design tokens ─────────
+   Ink-teal neutrals, signal red for emergencies, low-sun gold for warmth.
+   Overriding Tailwind's palette here restyles every existing component at once. */
+@theme {
+  --font-sans: "Figtree", "Noto Sans Devanagari", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", "Noto Sans Devanagari", ui-sans-serif, system-ui, sans-serif;
+
+  --color-slate-50: #f3f7f8;
+  --color-slate-100: #e6eef0;
+  --color-slate-200: #d3e0e3;
+  --color-slate-300: #b4c7cc;
+  --color-slate-400: #84999f;
+  --color-slate-500: #5d747c;
+  --color-slate-600: #455b63;
+  --color-slate-700: #33474f;
+  --color-slate-800: #1f3239;
+  --color-slate-900: #12252c;
+  --color-slate-950: #0a1b21;
+
+  --color-rose-50: #fff1f1;
+  --color-rose-100: #ffe1e1;
+  --color-rose-200: #ffc7c8;
+  --color-rose-300: #ff9ea1;
+  --color-rose-400: #f96b72;
+  --color-rose-500: #ea4350;
+  --color-rose-600: #d42a3b;
+  --color-rose-700: #af1f31;
+  --color-rose-800: #8e1c2e;
+  --color-rose-900: #781b2c;
+  --color-rose-950: #430a15;
+
+  --color-amber-50: #fff9e8;
+  --color-amber-100: #fff0c2;
+  --color-amber-200: #ffe08a;
+  --color-amber-300: #ffcc4d;
+  --color-amber-400: #f8b424;
+  --color-amber-500: #e99a0c;
+  --color-amber-600: #c97a06;
+  --color-amber-700: #a15b09;
+  --color-amber-800: #84480f;
+  --color-amber-900: #6c3c10;
+  --color-amber-950: #3e1e05;
+
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+
+  --shadow-xs: 0 1px 2px rgb(10 27 33 / 0.06), 0 1px 1px rgb(10 27 33 / 0.04);
+  --shadow-sm: 0 2px 6px rgb(10 27 33 / 0.06), 0 8px 20px -8px rgb(10 27 33 / 0.12);
+  --shadow-md: 0 4px 10px rgb(10 27 33 / 0.08), 0 16px 32px -12px rgb(10 27 33 / 0.2);
+  --shadow-xl: 0 10px 24px rgb(10 27 33 / 0.16), 0 28px 56px -20px rgb(10 27 33 / 0.38);
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body { font-family: var(--font-sans); color: var(--color-slate-900); }
+  h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.015em; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+}
+
+/* ───────── Canvas: low sun on a cool platform ───────── */
+.gh-canvas {
+  background-color: #edf3f4;
+  background-image:
+    radial-gradient(900px 340px at 50% -140px, rgb(248 180 36 / 0.26), transparent 70%),
+    linear-gradient(#edf3f4, #e7eef0);
+  background-repeat: no-repeat;
+}
+
+/* ───────── Hero card used at the top of every portal ───────── */
+.gh-hero {
+  --accent: #f8b424;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  border-radius: var(--radius-3xl);
+  background: linear-gradient(140deg, #0a1b21 0%, #10303a 62%, #153a45 100%);
+  box-shadow: var(--shadow-xl);
+}
+.gh-hero::before {            /* role colour edge */
+  content: "";
+  position: absolute; inset: 0 0 auto 0; height: 4px;
+  background: var(--accent);
+  z-index: 2;
+}
+.gh-hero::after {             /* the low sun */
+  content: "";
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(520px 260px at 100% 0%, rgb(248 180 36 / 0.20), transparent 70%);
+}
+.gh-hero > * { position: relative; z-index: 1; }
+.gh-accent-gold    { --accent: #f8b424; }
+.gh-accent-red     { --accent: #ea4350; }
+.gh-accent-teal    { --accent: #2fcf9e; }
+.gh-accent-blue    { --accent: #4a9dff; }
+.gh-accent-violet  { --accent: #a78bfa; }
+
+.gh-stat {
+  border-radius: 1rem;
+  background: rgb(255 255 255 / 0.06);
+  border: 1px solid rgb(255 255 255 / 0.10);
+}
+
+/* ───────── Western Line strip (Churchgate → Virar) ───────── */
+.gh-rail { position: relative; height: 14px; --rail: #f8b424; }
+.gh-rail-track { position: relative; height: 100%; }
+.gh-rail-track::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 6px; height: 2px;
+  border-radius: 2px; background: rgb(255 255 255 / 0.22);
+}
+.gh-rail-stop {
+  position: absolute; top: 3px; width: 8px; height: 8px; margin-left: -4px;
+  border-radius: 50%; background: #0f2c35; border: 2px solid rgb(255 255 255 / 0.4);
+}
+.gh-rail-stop.is-landmark {
+  top: 1px; width: 12px; height: 12px; margin-left: -6px; border-color: var(--rail);
+}
+.gh-rail-stop.is-active {
+  background: var(--rail);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--rail) 30%, transparent);
+}
+.gh-rail-stop em {
+  position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+  font-style: normal; font-size: 11px; font-weight: 600; white-space: nowrap;
+  color: rgb(255 255 255 / 0.7);
+}
+.gh-rail-stop:first-child em { left: -6px; transform: none; }
+.gh-rail-stop:last-child em { left: auto; right: -6px; transform: none; }
+
+/* ───────── Motion: only for things the person triggered ───────── */
+@keyframes gh-pop {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+.gh-pop { animation: gh-pop 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+/* ───────── Forms & focus ───────── */
+:focus-visible { outline: 2px solid var(--color-amber-500); outline-offset: 2px; }
+input:focus, textarea:focus, select:focus {
+  border-color: var(--color-amber-500) !important;
+  box-shadow: 0 0 0 3px rgb(248 180 36 / 0.25);
+  outline: none;
+}
+input, textarea, select { background-color: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
